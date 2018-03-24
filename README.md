@@ -4,61 +4,80 @@ Automous driving behavior at intersections with simulaor Gazebo for course Deep 
 
 1. Install gazebo from source
 
-sudo apt-get remove '.*gazebo.*' '.*sdformat.*' '.*ignition-math.*' '.*ignition-msgs.*' '.*ignition-transport.*'
+$sudo apt-get remove '.*gazebo.*' '.*sdformat.*' '.*ignition-math.*' '.*ignition-msgs.*' '.*ignition-transport.*'
 
-sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable lsb_release -cs main" > /etc/apt/sources.list.d/gazebo-stable.list'
+$sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable lsb_release -cs main" > /etc/apt/sources.list.d/gazebo-stable.list'
 
-wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+$wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
 
-sudo apt-get update
+$sudo apt-get update
 
-sudo apt-get install ros-$ROS_DISTRO-gazebo7-ros-pkgs
+$sudo apt-get install ros-$ROS_DISTRO-gazebo7-ros-pkgs
 
 2. Make sure that you succeed with installing gazebo
 
 In terminal:
 
 $ gazebo
+
 You should see a GUI with a empty world.
 
 $ which gzserver
+
 $ which gzclient
+
 You should see:
+
 /usr/local/bin/gzserver
+
 /usr/local/bin/gzclient
 
 3. Install gazebo_ros_pkgs
 
-mkdir -p ~/autonomous_car/src
-cd ~/autonomous_car/src
-catkin_init_workspace
-cd ~/autonomous_car
-catkin_make
+$mkdir -p ~/autonomous_car/src
 
-echo "source ~/autonomous_car/devel/setup.bash" >> ~/.bashrc
+$cd ~/autonomous_car/src
 
-sudo apt-get install -y gazebo2
+$catkin_init_workspace
 
-cd ~/autonomous_car/src
-git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git -b indigo-devel
+$cd ~/autonomous_car
+
+$catkin_make
+
+$echo "source ~/autonomous_car/devel/setup.bash" >> ~/.bashrc
+
+
+
+$sudo apt-get install -y gazebo2
+
+
+$cd ~/autonomous_car/src
+
+$git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git -b indigo-devel
 
 (you might need to delete some previous installed gazebo7, choose yes)
 
-rosdep update
-rosdep check --from-paths . --ignore-src --rosdistro indigo
+$rosdep update
 
-rosdep install --from-paths . --ignore-src --rosdistro indigo -y
+$rosdep check --from-paths . --ignore-src --rosdistro indigo
 
-cd ~/autonomous_cat/
-catkin_make
+$rosdep install --from-paths . --ignore-src --rosdistro indigo -y
+
+
+$cd ~/autonomous_cat/
+
+$catkin_make
 
 4. Test
 
 source, roscore
+
 source, rosrun gazebo_ros gazebo
+
 (You should see a GUI)
 
 source, rostopic list
+
 (You should see 
 /gazebo/link_states
 /gazebo/model_states
@@ -69,6 +88,7 @@ source, rostopic list
 )
 
 source, rosservice list
+
 (You should see
 /gazebo/apply_body_wrench
 /gazebo/apply_joint_effort
